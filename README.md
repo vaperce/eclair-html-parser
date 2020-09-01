@@ -5,6 +5,7 @@ A simple and efficient C++ HTML parser following [Whatwg HTML specification](htt
 Features:
 
 * full HTML/XML parsing with browser like DOM tree corrections
+* HTML 5 compatible
 * browser like encoding detection
 * HTML content cleanup
 * simple DOM access API

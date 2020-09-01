@@ -8,76 +8,73 @@ namespace eclair_html {
 namespace html_parser {
 namespace steps {
 
-  struct InColumnGroup : public BaseStep {
-    explicit InColumnGroup(RootBuilder& rootBuilder)
-      : BaseStep(rootBuilder) {
+struct InColumnGroup : public BaseStep {
+  explicit InColumnGroup(RootBuilder& rootBuilder) : BaseStep(rootBuilder) {}
+
+  virtual ~InColumnGroup() {}
+
+  virtual void process(Token& token) {
+    if (_isSpace(token)) {
+      _root.nodeInserter.insertCharacter(token);
+      return;
     }
-
-    virtual ~InColumnGroup() {
+    if (_checkCommentDocId(token)) {
+      return;
     }
-
-    virtual void process(Token& token) {
-      if (_isSpace(token)) {
-        _root.nodeInserter.insertCharacter(token);
+    if (token.kind == TokenKinds::START_TAG) {
+      switch (token.name.kind()) {
+      case TagKinds::HTML:
+        _root.reprocess(InsertionModes::IN_BODY, token);
         return;
-      }
-      if (_checkCommentDocId(token)) {
+
+      case TagKinds::COL:
+        _selfClosing(token);
         return;
+
+      case TagKinds::TEMPLATE:
+        _root.reprocess(InsertionModes::IN_HEAD, token);
+        return;
+
+      default:
+        break;
       }
-      if (token.kind == TokenKinds::START_TAG) {
-        switch (token.name.kind()) {
-          case TagKinds::HTML:
-            _root.reprocess(InsertionModes::IN_BODY, token);
-            return;
-
-          case TagKinds::COL:
-            _selfClosing(token);
-            return;
-
-          case TagKinds::TEMPLATE:
-            _root.reprocess(InsertionModes::IN_HEAD, token);
-            return;
-
-          default:
-            break;
+    }
+    if (token.kind == TokenKinds::END_TAG) {
+      switch (token.name.kind()) {
+      case TagKinds::COLGROUP:
+        if (_root.openElements.top().name() != TagKinds::COLGROUP) {
+          _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
+          return;
         }
-      }
-      if (token.kind == TokenKinds::END_TAG) {
-        switch (token.name.kind()) {
-          case TagKinds::COLGROUP:
-            if (_root.openElements.top().name() != TagKinds::COLGROUP) {
-              _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
-              return;
-            }
-            _root.openElements.pop();
-            _root.insertionMode.set(InsertionModes::IN_TABLE);
-            return;
+        _root.openElements.pop();
+        _root.insertionMode.set(InsertionModes::IN_TABLE);
+        return;
 
-          case TagKinds::COL:
-            _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
-            return;
-
-          case TagKinds::TEMPLATE:
-            _root.reprocess(InsertionModes::IN_HEAD, token);
-            return;
-
-          default:
-            break;
-        }
-      }
-
-      if (_root.openElements.top().name() != TagKinds::COLGROUP) {
+      case TagKinds::COL:
         _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
         return;
-      }
-      _root.openElements.pop();
-      _root.insertionMode.set(InsertionModes::IN_TABLE);
-      _root.reprocess(token);
-    }
-  };
 
-}
-}
-}
+      case TagKinds::TEMPLATE:
+        _root.reprocess(InsertionModes::IN_HEAD, token);
+        return;
+
+      default:
+        break;
+      }
+    }
+
+    if (_root.openElements.top().name() != TagKinds::COLGROUP) {
+      _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
+      return;
+    }
+    _root.openElements.pop();
+    _root.insertionMode.set(InsertionModes::IN_TABLE);
+    _root.reprocess(token);
+  }
+};
+
+} // namespace steps
+} // namespace html_parser
+} // namespace eclair_html
 
 #endif

@@ -6,13 +6,12 @@
 namespace eclair_html {
 namespace html_parser {
 
-  struct TokenReceiver {
-    virtual ~TokenReceiver() {
-    }
-    virtual void process(Token& token) = 0;
-  };
+struct TokenReceiver {
+  virtual ~TokenReceiver() {}
+  virtual void process(Token& token) = 0;
+};
 
-}
-}
+} // namespace html_parser
+} // namespace eclair_html
 
 #endif

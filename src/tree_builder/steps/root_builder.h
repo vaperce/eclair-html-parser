@@ -14,32 +14,30 @@ namespace eclair_html {
 namespace html_parser {
 namespace steps {
 
-  struct RootBuilder {
-    explicit RootBuilder(Node& document, ErrorManager& errorManager)
+struct RootBuilder {
+  explicit RootBuilder(Node& document, ErrorManager& errorManager)
       : errorManager(errorManager), state(document, openElements),
         insertionMode(openElements, state), nodeInserter(openElements, state),
         activeFormattingElements(openElements, nodeInserter),
         adoptionAgency(openElements, activeFormattingElements, nodeInserter,
-            errorManager) {
-    }
+                       errorManager) {}
 
-    virtual ~RootBuilder() {
-    }
+  virtual ~RootBuilder() {}
 
-    virtual void reprocess(Token& token) = 0;
-    virtual void reprocess(InsertionModes mode, Token& token) = 0;
+  virtual void reprocess(Token& token) = 0;
+  virtual void reprocess(InsertionModes mode, Token& token) = 0;
 
-    ErrorManager& errorManager;
-    OpenElements openElements;
-    State state;
-    InsertionMode insertionMode;
-    NodeInserter nodeInserter;
-    ActiveFormattingElements activeFormattingElements;
-    AdoptionAgency adoptionAgency;
-  };
+  ErrorManager& errorManager;
+  OpenElements openElements;
+  State state;
+  InsertionMode insertionMode;
+  NodeInserter nodeInserter;
+  ActiveFormattingElements activeFormattingElements;
+  AdoptionAgency adoptionAgency;
+};
 
-}
-}
-}
+} // namespace steps
+} // namespace html_parser
+} // namespace eclair_html
 
 #endif

@@ -10,5 +10,5 @@ const std::u16string Node::textContent() const {
   return res;
 }
 
-}
-}
+} // namespace html_parser
+} // namespace eclair_html

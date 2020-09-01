@@ -12,38 +12,36 @@
 namespace eclair_html {
 namespace html_parser {
 
-  class State : public TokenizerConfig {
-  public:
-    State(Node& document, const OpenElements& openElements)
-      : document(document), head(nullptr), form(nullptr),
-        scriptEnabled(false), framesetOk(true), ignoreNextLineFeed(false),
-        _openElements(openElements) {
+class State : public TokenizerConfig {
+public:
+  State(Node& document, const OpenElements& openElements)
+      : document(document), head(nullptr), form(nullptr), scriptEnabled(false),
+        framesetOk(true), ignoreNextLineFeed(false),
+        _openElements(openElements) {}
+  virtual ~State() {}
+
+  virtual bool isHTMLNamespace() const {
+    if (_openElements.empty()) {
+      return true;
     }
-    virtual ~State() {
-    }
+    return _openElements.top().name().nameSpace() == Namespaces::HTML;
+  }
 
-    virtual bool isHTMLNamespace() const {
-      if (_openElements.empty()) {
-        return true;
-      }
-      return _openElements.top().name().nameSpace() == Namespaces::HTML;
-    }
+  Node& document;
+  Node* head;
+  Node* form;
 
-    Node& document;
-    Node* head;
-    Node* form;
+  bool scriptEnabled;
+  bool framesetOk;
+  bool ignoreNextLineFeed;
 
-    bool scriptEnabled;
-    bool framesetOk;
-    bool ignoreNextLineFeed;
+  std::vector<Token> pendingTableTextTokens;
 
-    std::vector<Token> pendingTableTextTokens;
+private:
+  const OpenElements& _openElements;
+};
 
-  private:
-    const OpenElements& _openElements;
-  };
-
-}
-}
+} // namespace html_parser
+} // namespace eclair_html
 
 #endif

@@ -7,7 +7,7 @@
 
 #include "unicode/ustring.h"
 
-std::ostream& operator <<(std::ostream& stream, const std::u16string& str) {
+std::ostream& operator<<(std::ostream& stream, const std::u16string& str) {
   if (str.empty()) {
     return stream;
   }

@@ -8,66 +8,63 @@ namespace eclair_html {
 namespace html_parser {
 namespace steps {
 
-  struct InSelectInTable : public BaseStep {
-    explicit InSelectInTable(RootBuilder& rootBuilder)
-      : BaseStep(rootBuilder) {
-    }
+struct InSelectInTable : public BaseStep {
+  explicit InSelectInTable(RootBuilder& rootBuilder) : BaseStep(rootBuilder) {}
 
-    virtual ~InSelectInTable() {
-    }
+  virtual ~InSelectInTable() {}
 
-    virtual void process(Token& token) {
-      if (token.kind == TokenKinds::START_TAG) {
-        switch (token.name.kind()) {
-          case TagKinds::CAPTION:
-          case TagKinds::TABLE:
-          case TagKinds::TBODY:
-          case TagKinds::TFOOT:
-          case TagKinds::THEAD:
-          case TagKinds::TR:
-          case TagKinds::TD:
-          case TagKinds::TH:
-            _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
-            _root.openElements.popUntil(TagName(TagKinds::SELECT));
-            _root.insertionMode.reset();
-            _root.reprocess(token);
-            return;
+  virtual void process(Token& token) {
+    if (token.kind == TokenKinds::START_TAG) {
+      switch (token.name.kind()) {
+      case TagKinds::CAPTION:
+      case TagKinds::TABLE:
+      case TagKinds::TBODY:
+      case TagKinds::TFOOT:
+      case TagKinds::THEAD:
+      case TagKinds::TR:
+      case TagKinds::TD:
+      case TagKinds::TH:
+        _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
+        _root.openElements.popUntil(TagName(TagKinds::SELECT));
+        _root.insertionMode.reset();
+        _root.reprocess(token);
+        return;
 
-          default:
-            break;
-        }
+      default:
+        break;
       }
-      if (token.kind == TokenKinds::END_TAG) {
-        switch (token.name.kind()) {
-          case TagKinds::CAPTION:
-          case TagKinds::TABLE:
-          case TagKinds::TBODY:
-          case TagKinds::TFOOT:
-          case TagKinds::THEAD:
-          case TagKinds::TR:
-          case TagKinds::TD:
-          case TagKinds::TH:
-            _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
-            if (!_root.openElements.hasElementInScope(ScopeKinds::TABLE,
-                  token.name.kind())) {
-              return;
-            }
-            _root.openElements.popUntil(TagName(TagKinds::SELECT));
-            _root.insertionMode.reset();
-            _root.reprocess(token);
-            return;
-
-          default:
-            break;
-        }
-      }
-
-      _root.reprocess(InsertionModes::IN_SELECT, token);
     }
-  };
+    if (token.kind == TokenKinds::END_TAG) {
+      switch (token.name.kind()) {
+      case TagKinds::CAPTION:
+      case TagKinds::TABLE:
+      case TagKinds::TBODY:
+      case TagKinds::TFOOT:
+      case TagKinds::THEAD:
+      case TagKinds::TR:
+      case TagKinds::TD:
+      case TagKinds::TH:
+        _root.errorManager.add(ErrorKinds::UNEXPECTED_TAG, token);
+        if (!_root.openElements.hasElementInScope(ScopeKinds::TABLE,
+                                                  token.name.kind())) {
+          return;
+        }
+        _root.openElements.popUntil(TagName(TagKinds::SELECT));
+        _root.insertionMode.reset();
+        _root.reprocess(token);
+        return;
 
-}
-}
-}
+      default:
+        break;
+      }
+    }
+
+    _root.reprocess(InsertionModes::IN_SELECT, token);
+  }
+};
+
+} // namespace steps
+} // namespace html_parser
+} // namespace eclair_html
 
 #endif

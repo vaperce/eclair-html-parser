@@ -1,8 +1,14 @@
 # eclair-html-parser
 
-## About
-
 A simple and efficient C++ HTML parser following [Whatwg HTML specification](https://html.spec.whatwg.org/multipage/).
+
+Features:
+
+* full HTML/XML parsing with browser like DOM tree corrections
+* browser like encoding detection
+* HTML content cleanup
+* simple DOM access API
+* pretty printing
 
 Made with ❤️ in Paris 🇫🇷.
 
@@ -28,7 +34,9 @@ Node root = document.root();
 
 ## Build
 
-Requires CMake
+Requires CMake.
+
+Builds static libraries only.
 
 ```bash
 > mkdir build

@@ -25,3 +25,22 @@ document.clean(CleanFlags::SPACE);
 // Access root node
 Node root = document.root();
 ```
+
+## Build
+
+Requires CMake
+
+```bash
+> mkdir build
+> cd build
+> cmake -DCMAKE_INSTALL_PREFIX=~/my-install-dir ..
+> make -j
+> make install
+```
+
+## Dependencies
+
+* compact_enc_det: head
+* icu4c: 65-1
+
+Dependencies are automatically downloaded and built during the build.

@@ -3,6 +3,7 @@
 ## About
 
 A simple and efficient C++ HTML parser following [Whatwg HTML specification](https://html.spec.whatwg.org/multipage/).
+
 Made with ❤️ in Paris 🇫🇷.
 
 ## Usage example

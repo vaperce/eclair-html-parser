@@ -7,7 +7,7 @@
 #include "eclair-html/document.h"
 #include "eclair-html/node.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   char operator &(char v1, CleanFlags v2) {

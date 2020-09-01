@@ -1,7 +1,7 @@
 #ifndef ECLAIR_HTML_COMMON_POSITION
 #define ECLAIR_HTML_COMMON_POSITION
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   struct Position {

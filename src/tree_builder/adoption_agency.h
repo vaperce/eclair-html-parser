@@ -7,7 +7,7 @@
 #include "tree_builder/node_inserter.h"
 #include "tree_builder/open_elements.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class AdoptionAgency {

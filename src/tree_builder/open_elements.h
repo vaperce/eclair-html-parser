@@ -9,7 +9,7 @@
 #include "eclair-html/node.h"
 #include "eclair-html/tag_names.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   enum class ScopeKinds {

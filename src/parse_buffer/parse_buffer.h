@@ -11,7 +11,7 @@
 #include "common/tools.h"
 #include "parse_buffer/meta_charset_parser.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class ParseBuffer {

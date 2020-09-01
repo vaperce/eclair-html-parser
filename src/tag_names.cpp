@@ -1,6 +1,6 @@
 #include "eclair-html/tag_names.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
 const std::unordered_map<std::u16string, TagKinds> TagName::_HTML_STR_MAP = {

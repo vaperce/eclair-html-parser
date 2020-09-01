@@ -4,7 +4,7 @@
 #include "renderer.h"
 #include "text_extractor.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
 bool Document::parse(const char* data, std::size_t length, const char* charset,

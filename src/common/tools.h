@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <string>
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 namespace Tools {
 

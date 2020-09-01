@@ -1,6 +1,6 @@
 #include "tokenizer/entities.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
 const EntityEntries Entities::_ENTITY_MAP = {

@@ -5,7 +5,7 @@
 
 #include "tree_builder/insertion_modes.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   struct InsertionModeNames {

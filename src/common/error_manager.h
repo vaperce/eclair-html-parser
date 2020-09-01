@@ -8,7 +8,7 @@
 #include "common/tokens.h"
 #include "eclair-html/errors.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class ErrorManager {

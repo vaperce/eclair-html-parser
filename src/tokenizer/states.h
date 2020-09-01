@@ -1,7 +1,7 @@
 #ifndef ECLAIR_HTML_TOKENIZER_STATES
 #define ECLAIR_HTML_TOKENIZER_STATES
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   enum class TokenizerStates {

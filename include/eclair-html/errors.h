@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   enum class ErrorKinds {

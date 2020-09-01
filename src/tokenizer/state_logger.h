@@ -5,7 +5,7 @@
 
 #include "tokenizer/states.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class StateLogger {

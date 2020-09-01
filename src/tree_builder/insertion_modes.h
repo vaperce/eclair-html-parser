@@ -1,7 +1,7 @@
 #ifndef ECLAIR_HTML_TREE_BUILDER_INSERTION_MODES
 #define ECLAIR_HTML_TREE_BUILDER_INSERTION_MODES
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   enum class InsertionModes {

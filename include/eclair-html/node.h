@@ -8,7 +8,7 @@
 
 #include "eclair-html/tag_names.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class Inserter;

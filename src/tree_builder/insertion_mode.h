@@ -7,7 +7,7 @@
 #include "tree_builder/open_elements.h"
 #include "tree_builder/state.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class InsertionMode {

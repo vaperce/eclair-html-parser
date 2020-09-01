@@ -10,7 +10,7 @@
 #include "tokenizer/states.h"
 #include "tokenizer/state_logger.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class BaseStateHandler {

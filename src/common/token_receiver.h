@@ -3,7 +3,7 @@
 
 #include "common/tokens.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   struct TokenReceiver {

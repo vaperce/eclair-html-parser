@@ -15,7 +15,7 @@
 #include "tree_builder/steps/root_builder.h"
 #include "tree_builder/steps/steps.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class TreeBuilder : public steps::RootBuilder, public TokenReceiver {

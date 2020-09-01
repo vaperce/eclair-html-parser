@@ -7,7 +7,7 @@
 #include "common/tools.h"
 #include "tree_builder/steps/base_step.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 namespace steps {
 

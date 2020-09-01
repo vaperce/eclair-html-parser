@@ -1,6 +1,6 @@
 #include "eclair-html/errors.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
 const std::vector<std::string> Error::_NAMES = {

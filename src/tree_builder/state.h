@@ -9,7 +9,7 @@
 #include "tokenizer/config.h"
 #include "tree_builder/open_elements.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class State : public TokenizerConfig {

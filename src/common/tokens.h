@@ -10,7 +10,7 @@
 #include "eclair-html/node.h"
 #include "eclair-html/tag_names.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   enum class TokenKinds {
@@ -86,24 +86,25 @@ namespace html_parser {
 }
 
 
-std::ostream& operator <<(std::ostream& stream, const xyz::html_parser::Token& token) {
+std::ostream& operator <<(std::ostream& stream,
+    const eclair_html::html_parser::Token& token) {
   switch (token.kind) {
-    case xyz::html_parser::TokenKinds::DOC_TYPE:
+    case eclair_html::html_parser::TokenKinds::DOC_TYPE:
       stream << "DOC_TYPE";
       break;
-    case xyz::html_parser::TokenKinds::START_TAG:
+    case eclair_html::html_parser::TokenKinds::START_TAG:
       stream << "START_TAG(" << token.name.value() << ")";
       break;
-    case xyz::html_parser::TokenKinds::END_TAG:
+    case eclair_html::html_parser::TokenKinds::END_TAG:
       stream << "END_TAG(" << token.name.value() << ")";
       break;
-    case xyz::html_parser::TokenKinds::CHARACTER:
+    case eclair_html::html_parser::TokenKinds::CHARACTER:
       stream << "CHARACTER(" << token.data << ")";
       break;
-    case xyz::html_parser::TokenKinds::COMMENT:
+    case eclair_html::html_parser::TokenKinds::COMMENT:
       stream << "COMMENT";
       break;
-    case xyz::html_parser::TokenKinds::END_OF_FILE:
+    case eclair_html::html_parser::TokenKinds::END_OF_FILE:
       stream << "END_OF_FILE";
       break;
   }

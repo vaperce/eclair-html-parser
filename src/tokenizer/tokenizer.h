@@ -8,7 +8,7 @@
 #include "tokenizer/config.h"
 #include "tokenizer/state_handler.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class Tokenizer {

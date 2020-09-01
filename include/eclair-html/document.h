@@ -12,7 +12,7 @@
 // 1e920001839f255bf5ea3ba687b74457188246ed
 // on 12/11/2019
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   enum class CleanFlags : char {

@@ -11,7 +11,7 @@
 #include "tokenizer/tokenizer.h"
 #include "tree_builder/tree_builder.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class Parser {

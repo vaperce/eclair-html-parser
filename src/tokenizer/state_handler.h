@@ -5,7 +5,7 @@
 #include "tokenizer/base_state_handler.h"
 #include "tokenizer/entities.h"
 
-namespace xyz {
+namespace eclair_html {
 namespace html_parser {
 
   class StateHandler : public BaseStateHandler {

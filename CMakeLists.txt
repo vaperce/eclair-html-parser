@@ -3,11 +3,21 @@ include(ExternalProject)
 
 project(eclair-html-parser)
 
+if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+  set(ICU_OS_NAME Linux)
+elseif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
+  set(ICU_OS_NAME MacOSX)
+elseif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
+  set(ICU_OS_NAME Cygwin)
+else ()
+  message(FATAL_ERROR "Unsupported OS ${CMAKE_SYSTEM_NAME} - cannot build")
+endif ()
+
 externalproject_add(
   compact_enc_det_project
   GIT_REPOSITORY https://github.com/google/compact_enc_det.git
   CMAKE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=TRUE
-  BUILD_COMMAND make -j ced
+  BUILD_COMMAND make ced
   INSTALL_COMMAND ""
 )
 
@@ -25,12 +35,6 @@ set_property(
 )
 add_dependencies(compact_enc_det compact_enc_det_project)
 
-if (LINUX)
-  set(ICU_OS_NAME Linux)
-elseif (APPLE)
-  set(ICU_OS_NAME MacOSX)
-endif ()
-
 externalproject_add(
   icu4c_project
   URL https://github.com/unicode-org/icu/releases/download/release-65-1/icu4c-65_1-src.tgz
@@ -39,7 +43,7 @@ externalproject_add(
     ${CMAKE_COMMAND}
       -E env CXXFLAGS=-fPIC
       sh <SOURCE_DIR>/source/runConfigureICU ${ICU_OS_NAME} --enable-shared=no --enable-static=yes --enable-tests=no prefix=<INSTALL_DIR>
-  BUILD_COMMAND make -j
+  BUILD_COMMAND make
   INSTALL_COMMAND make install
 )
 

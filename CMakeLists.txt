@@ -7,19 +7,19 @@ if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   set(ICU_TARGET Linux)
   set(CED_PATCH_COMMAND "")
   set(CED_CMAKE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=TRUE)
-  set(ICU_CONFIG_ENV env CXXFLAGS=-fPIC)
+  set(ICU_CONFIG_COMMAND_PREFIX ${CMAKE_COMMAND} -E env CXXFLAGS=-fPIC)
 
 elseif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
   set(ICU_TARGET MacOSX)
   set(CED_PATCH_COMMAND "")
   set(CED_CMAKE_ARGS "")
-  set(ICU_CONFIG_ENV "")
+  set(ICU_CONFIG_COMMAND_PREFIX "")
 
 elseif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
   set(ICU_TARGET "Cygwin/MSVC")
-  set(CED_PATCH_COMMAND "${CMAKE_COMMAND} -E sed -i -e '9,12d' CMakeLists.txt")
+  set(CED_PATCH_COMMAND "sed -e '9,12d' CMakeLists.txt")
   set(CED_CMAKE_ARGS "")
-  set(ICU_CONFIG_ENV "")
+  set(ICU_CONFIG_COMMAND_PREFIX "")
 
 else ()
   message(FATAL_ERROR "Unsupported OS ${CMAKE_SYSTEM_NAME} - cannot build")
@@ -54,8 +54,8 @@ externalproject_add(
   URL https://github.com/unicode-org/icu/releases/download/release-65-1/icu4c-65_1-src.tgz
   URL_HASH SHA512=8f1ef33e1f4abc9a8ee870331c59f01b473d6da1251a19ce403f822f3e3871096f0791855d39c8f20c612fc49cda2c62c06864aa32ddab2dbd186d2b21ce9139
   CONFIGURE_COMMAND
-    ${CMAKE_COMMAND} -E ${ICU_CONFIG_ENV}
-      sh <SOURCE_DIR>/source/runConfigureICU ${ICU_TARGET} --enable-shared=no --enable-static=yes --enable-tests=no prefix=<INSTALL_DIR>
+    ${ICU_CONFIG_COMMAND_PREFIX}
+    sh <SOURCE_DIR>/source/runConfigureICU ${ICU_TARGET} --enable-shared=no --enable-static=yes --enable-tests=no prefix=<INSTALL_DIR>
   BUILD_COMMAND make
   INSTALL_COMMAND make install
 )

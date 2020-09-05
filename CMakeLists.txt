@@ -4,19 +4,33 @@ include(ExternalProject)
 project(eclair-html-parser)
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
-  set(ICU_OS_NAME Linux)
+  set(ICU_TARGET Linux)
+  set(CED_PATCH_COMMAND "")
+  set(CED_CMAKE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=TRUE)
+  set(ICU_CONFIG_ENV -E env CXXFLAGS=-fPIC)
+
 elseif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
-  set(ICU_OS_NAME MacOSX)
+  set(ICU_TARGET MacOSX)
+  set(CED_PATCH_COMMAND "")
+  set(CED_CMAKE_ARGS "")
+  set(ICU_CONFIG_ENV "")
+
 elseif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
-  set(ICU_OS_NAME Cygwin)
+  set(ICU_TARGET "Cygwin/MSVC")
+  set(CED_PATCH_COMMAND "sed -i -e '9,12d' CMakeLists.txt")
+  set(CED_CMAKE_ARGS "")
+  set(ICU_CONFIG_ENV "")
+
 else ()
   message(FATAL_ERROR "Unsupported OS ${CMAKE_SYSTEM_NAME} - cannot build")
+
 endif ()
 
 externalproject_add(
   compact_enc_det_project
   GIT_REPOSITORY https://github.com/google/compact_enc_det.git
-  CMAKE_ARGS -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=TRUE
+  PATCH_COMMAND ${CED_PATCH_COMMAND}
+  CMAKE_ARGS ${CED_CMAKE_ARGS}
   BUILD_COMMAND make ced
   INSTALL_COMMAND ""
 )
@@ -40,9 +54,8 @@ externalproject_add(
   URL https://github.com/unicode-org/icu/releases/download/release-65-1/icu4c-65_1-src.tgz
   URL_HASH SHA512=8f1ef33e1f4abc9a8ee870331c59f01b473d6da1251a19ce403f822f3e3871096f0791855d39c8f20c612fc49cda2c62c06864aa32ddab2dbd186d2b21ce9139
   CONFIGURE_COMMAND
-    ${CMAKE_COMMAND}
-      -E env CXXFLAGS=-fPIC
-      sh <SOURCE_DIR>/source/runConfigureICU ${ICU_OS_NAME} --enable-shared=no --enable-static=yes --enable-tests=no prefix=<INSTALL_DIR>
+    ${CMAKE_COMMAND} ${ICU_CONFIG_ENV}
+      sh <SOURCE_DIR>/source/runConfigureICU ${ICU_TARGET} --enable-shared=no --enable-static=yes --enable-tests=no prefix=<INSTALL_DIR>
   BUILD_COMMAND make
   INSTALL_COMMAND make install
 )
